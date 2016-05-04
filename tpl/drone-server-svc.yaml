@@ -1,0 +1,16 @@
+#helm:generate helm tpl -d values.toml -o manifests/drone-server-svc.yaml $HELM_GENERATE_FILE
+apiVersion: v1
+kind: Service
+metadata:
+  name: drone-server
+  labels:
+    provider: drone-server
+    heritage: helm
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    name: drone-server
+  type: LoadBalancer

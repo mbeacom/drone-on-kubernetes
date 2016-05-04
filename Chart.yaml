@@ -1,0 +1,9 @@
+name: drone-server
+home: https://github.com/drone-demos/drone-on-kubernetes
+version: 0.1.0
+description: The Drone CI server (master)
+maintainers:
+- Greg Taylor <gtaylor@gc-taylor.com>
+details: |-
+  This chart contains everything needed to run a minimal Drone server (master). Once you have this in place and
+  running, follow up by installing drone-agent.

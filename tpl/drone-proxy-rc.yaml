@@ -1,0 +1,32 @@
+#helm:generate helm tpl -d values.toml -o manifests/drone-proxy-rc.yaml $HELM_GENERATE_FILE
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: drone-proxy
+  labels:
+    heritage: helm
+spec:
+  replicas: 1
+  selector:
+    name: drone-proxy
+  template:
+    metadata:
+      labels:
+        name: drone-proxy
+    spec:
+      containers:
+        - image: abiosoft/caddy:latest
+          name: drone-proxy
+          command:
+            - "--conf"
+            - /etc/caddy/caddy.conf
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /etc/caddy
+              name: config-volume
+      volumes:
+        - name: config-volume
+          configMap:
+            name: drone

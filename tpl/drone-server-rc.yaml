@@ -1,21 +1,22 @@
+#helm:generate helm tpl -d values.toml -o manifests/drone-server-rc.yaml $HELM_GENERATE_FILE
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: droneio
+  name: drone-server
   labels:
-    name: droneio
+    heritage: helm
 spec:
   replicas: 1
   selector:
-    name: droneio
+    name: drone-server
   template:
     metadata:
       labels:
-        name: droneio
+        name: drone-server
     spec:
       containers:
         - image: drone/drone:0.4
-          name: droneio
+          name: drone-server
           env:
             # HTTP Listen Address
             - name: SERVER_ADDR
@@ -28,27 +29,26 @@ spec:
               value: /var/lib/drone/drone.sqlite
             # RCS stuff
             - name: REMOTE_DRIVER
-              value: github
-            # See: http://readme.drone.io/setup/github/
+              value: {{ .remote.driver }}
             - name: REMOTE_CONFIG
-              value: https://github.com?client_id=${YOUR_CLIENT_ID_HERE}&client_secret=${YOUR_CLIENT_SECRET_HERE}
+              value: {{ .remote.config }}
           ports:
             - containerPort: 80
               protocol: TCP
           volumeMounts:
             # Persist our configs in an SQLite DB in here
-            - mountPath: /var/lib/drone
-              name: droneio-sqlite-db
+#            - mountPath: /var/lib/drone
+#              name: drone-server-sqlite-db
             # Enables Docker in Docker
             - mountPath: /var/run/docker.sock
               name: docker-socket
             - mountPath: /var/lib/docker
               name: docker-lib
       volumes:
-        - name: droneio-sqlite-db
-          gcePersistentDisk:
-            pdName: droneio-sqlite-db
-            fsType: ext4
+#        - name: drone-server-sqlite-db
+#          gcePersistentDisk:
+#            pdName: drone-server-sqlite-db
+#            fsType: ext4
         - name: docker-socket
           hostPath:
             path: /var/run/docker.sock
