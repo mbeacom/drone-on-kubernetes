@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: droneio
+  name: drone-server
   labels:
-    name: droneio
+    provider: drone-server
+    heritage: drone-demos
 spec:
   ports:
     - port: 80
       protocol: TCP
       targetPort: 80
   selector:
-    name: droneio
-  type: LoadBalancer
+    name: drone-server

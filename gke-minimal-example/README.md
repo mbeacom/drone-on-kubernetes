@@ -10,59 +10,38 @@ There are a few things you'll need to do prior to using these manifests.
 How to do them is beyond the scope of this example, but here's a rough
 run-down (you can do most of this from their web console):
 
-### Create and format a Disk
+* Create a Container Engine cluster if you don't already have one. You can
+  do this via Google Cloud Platform's web console or the `gcloud` command (if
+  you have installed the GCP SDK).
+* Make sure your ``kubectl`` client is configured correctly to work with
+  your cluster. See the
+  [GKE docs](https://cloud.google.com/container-engine/docs/before-you-begin)),
+  on how to get this set up.
+* Create a persistent disk of 10-20 GB in the same availability zone and
+  region as your cluster. Name it `drone-server-sqlite-db`.
 
-* Create a Disk to hold your SQLite DB. This can be pretty small.
-* You'll want to mount the Disk to a Compute Engine instance, then SSH in
-  and ``mkfs.ext4`` the disk to format it.
-* Un-mount the disk and destroy the Compute Engine instance you used
-  for the formatting.
-* Take note of the zone you created the disk in. You'll need to make sure
-  that your Container Engine cluster (which you are about to create)
-  is in the same zone.
-  
-### Create the Container Engine cluster
+### Install Dronoe
 
-In the same zone as your DB Disk, create your GKE cluster. You can start
-with a single node if you'd like.
+Finally, run `install-drone.sh` and follow the prompts carefully. At the
+end of the installation script, you should be able to point your browser at
+`https://drone.your-fqdn.com` and see a Login page.
 
-See the GKE [Getting started guide](https://cloud.google.com/container-engine/docs/before-you-begin)
-for guidance on this.
+### Troubleshooting
 
-### Load the manifests
-
-Making sure that your ``kubectl`` client is configured correctly (see the
-[GKE docs](https://cloud.google.com/container-engine/docs/before-you-begin)), 
-load these manifests:
-
-```
-kubectl create -f drone.service.yaml
-```
-
-This will create a service, which is going to leave with you an IP that
-points at a front-facing load balancer. Use ``kubectl get svc`` to find
-the external IP. You can stop to point a DNS entry now or do it later.
-
-```
-kubectl create -f drone.controller.yaml
-```
-
-This will create a Replication Controller, which will make sure there's one
-Drone pod running on your cluster at all times. You can verify that it started
-correctly by doing something like:
+You can verify that everything is running correctly like this:
 
 ```
 kubectl get pods
 ```
 
-You should see a single pod in a "Running" state. If there were issues,
+You should see several pods in a "Running" state. If there were issues,
 note the name of the pod and look at the logs:
 
 ```
-kubectl logs -f droneio-a123
+kubectl logs -f drone-proxy-a123
 ```
 
-Where ``droneio-a123`` is the pod name.
+Where ``drone-proxy-a123`` is the pod name.
 
 
 ### Stuck? Need help?

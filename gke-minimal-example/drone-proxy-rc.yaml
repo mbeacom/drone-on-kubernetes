@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: drone-proxy
+  labels:
+    heritage: drone-demos
+spec:
+  replicas: 1
+  selector:
+    name: drone-proxy
+  template:
+    metadata:
+      labels:
+        name: drone-proxy
+    spec:
+      containers:
+        - image: gtaylor/caddy-for-drone:latest
+          imagePullPolicy: Always
+          name: drone-proxy
+          env:
+            - name: PROXY_HOSTNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: drone
+                  key: proxy.fqdn
+            - name: LETSENCRYPT_EMAIL
+              valueFrom:
+                configMapKeyRef:
+                  name: drone
+                  key: proxy.letsencrypt.email
+            # This is hard-coded for the purpose of our demo.
+            - name: UPSTREAM
+              value: drone-server
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+            - name: https
+              containerPort: 443
+              protocol: TCP
+      volumes:
+        - name: config-volume
+          configMap:
+            name: drone

@@ -11,13 +11,7 @@ described below:
   
 ## The State of Drone on Kubernetes
 
-Everything works great on Kubernetes as of 1.3.x. There is only one issue
-to work around:
-
-* ["/sys/fs/docker: read-only file system" during docker publish step](https://github.com/drone/drone/issues/1352)
-
-If you see /sys/fs errors, check the issue above for details. The root
-cause is a Docker bug that will be fixed in Docker 1.10. 
+Everything works great on Kubernetes as of 1.2.2.
   
 ## Contributions welcome!
 
