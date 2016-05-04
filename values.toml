@@ -6,3 +6,7 @@ fqdn = "drone.kubernator.com"
 # See: http://readme.drone.io/setup/github/
 driver = "github"
 config = "https://github.com?client_id=${YOUR_CLIENT_ID_HERE}&client_secret=${YOUR_CLIENT_SECRET_HERE}"
+
+[database]
+driver = "sqlite3"
+config = "/var/lib/drone/drone.sqlite"

@@ -7,11 +7,10 @@ metadata:
   namespace: default
 data:
   caddy.conf: |-
-    tls {{ .web.letsencrypt_email }}
-    {{ .web.fqdn }} {
-        proxy / drone:80 {
-          proxy_header X-Forwarded-Proto {scheme}
-          proxy_header X-Forwarded-For {host}
-          proxy_header Host {host}
+    drone.kubernator.com {
+        proxy / drone-server:80 {
+            proxy_header X-Forwarded-Proto {scheme}
+            proxy_header X-Forwarded-For {host}
+            proxy_header Host {host}
         }
     }

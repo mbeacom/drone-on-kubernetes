@@ -18,16 +18,12 @@ spec:
         - image: drone/drone:0.4
           name: drone-server
           env:
-            # HTTP Listen Address
             - name: SERVER_ADDR
               value: ":80"
-            # DB stuff
             - name: DATABASE_DRIVER
-              value: sqlite3
-            # This ends up being a mounted Google Cloud Disk.
+              value: {{ .database.driver }}
             - name: DATABASE_CONFIG
-              value: /var/lib/drone/drone.sqlite
-            # RCS stuff
+              value: {{ .database.config }}
             - name: REMOTE_DRIVER
               value: {{ .remote.driver }}
             - name: REMOTE_CONFIG
@@ -36,19 +32,19 @@ spec:
             - containerPort: 80
               protocol: TCP
           volumeMounts:
-            # Persist our configs in an SQLite DB in here
-#            - mountPath: /var/lib/drone
-#              name: drone-server-sqlite-db
+            # Persist our state in an SQLite DB here
+            - mountPath: /var/lib/drone
+              name: drone-server-sqlite-db
             # Enables Docker in Docker
             - mountPath: /var/run/docker.sock
               name: docker-socket
             - mountPath: /var/lib/docker
               name: docker-lib
       volumes:
-#        - name: drone-server-sqlite-db
-#          gcePersistentDisk:
-#            pdName: drone-server-sqlite-db
-#            fsType: ext4
+        - name: drone-server-sqlite-db
+          gcePersistentDisk:
+            pdName: drone-server-sqlite-db
+            fsType: ext4
         - name: docker-socket
           hostPath:
             path: /var/run/docker.sock

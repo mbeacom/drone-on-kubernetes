@@ -18,10 +18,17 @@ spec:
         - image: abiosoft/caddy:latest
           name: drone-proxy
           command:
+            - "caddy"
             - "--conf"
             - /etc/caddy/caddy.conf
+            - "--email"
+            - "{{ .web.letsencrypt_email }}"
           ports:
-            - containerPort: 80
+            - name: http
+              containerPort: 80
+              protocol: TCP
+            - name: https
+              containerPort: 443
               protocol: TCP
           volumeMounts:
             - mountPath: /etc/caddy

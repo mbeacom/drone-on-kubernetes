@@ -13,4 +13,3 @@ spec:
       targetPort: 80
   selector:
     name: drone-server
-  type: LoadBalancer
