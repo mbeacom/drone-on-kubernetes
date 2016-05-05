@@ -1,8 +1,10 @@
 # Drone on Google Container Engine (minimal example)
 
-This directory contains an example of the simplest viable Drone deployment
-on [Google Container Engine](https://cloud.google.com/container-engine/).
-We eschew some important things like HTTPS in the name of conciseness.
+This directory contains an example of a simple but production-ready Drone
+install on [Google Container Engine](https://cloud.google.com/container-engine/).
+We use [Caddy](https://caddyserver.com/) and
+[Let's Encrypt](https://letsencrypt.org/) to automatically generate a matching
+SSL cert for you at runtime.
 
 ## Prep work
 

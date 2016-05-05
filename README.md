@@ -4,8 +4,7 @@ This repository contains example [Kubernetes](http://kubernetes.io/)
 manifests for Drone. Each subdirectory is a different setup, as
 described below:
 
-* ``gke-minimal-example`` - The most stripped down example that we could
-  manage for Drone running on 
+* ``gke-with-https`` - A production-ready Drone install for
   [Google Container Engine](https://cloud.google.com/container-engine/)
   (hosted Kubernetes).
   
