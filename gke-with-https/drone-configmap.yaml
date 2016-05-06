@@ -5,15 +5,56 @@ metadata:
   name: drone
   namespace: default
 data:
-  # This should be changed to a valid email for Let's Encrypt's records.
-  proxy.letsencrypt.email: replaceme@yourdomain.com
-  # Where you want this Drone install to live. You'll need to create a DNS
-  # entry before installation can complete.
+
+  ################
+  # Proxy Config #
+  ################
+
+  # CHANGEME: This should be changed to a valid email for Let's Encrypt's
+  # records.
+  proxy.letsencrypt.email: your@email.com
+  # CHANGEME: The Fully-Qualified Domain Name (FQDN) for where Drone will run.
+  # No need to create a DNS entry just yet. The installer will walk you through
+  # this process.
   proxy.fqdn: drone.yourdomain.com
-  # See http://readme.drone.io/setup/remotes/ for possible values here.
-  drone.remote.driver: github
-  drone.remote.config: https://github.com?client_id=${YOUR_CLIENT_ID_HERE}&client_secret=${YOUR_CLIENT_SECRET_HERE}
+
+  ################################
+  # Drone Server (master) Config #
+  ################################
+
+  server.debug.is.enabled: "true"
+  # CHANGEME: Randomly generate something at least 24 characters long with
+  # a password generator.
+  server.agent.secret: "replace-this-with-your-own-random-secret"
+
   # You'll probably want to leave this alone, but you can point to external
   # DB instances if you'd like: http://readme.drone.io/setup/database/
-  drone.database.driver: sqlite3
-  drone.database.config: /var/lib/drone/drone.sqlite
+  server.database.driver: sqlite3
+  server.database.config: /var/lib/drone/drone.sqlite
+
+  server.is.open: "true"
+  # CHANGEME: If you want to restrict access to a particular org, put the
+  # name here.
+  server.orgs.list: ""
+  # CHANGEME: Add your GitHub/Bitbucket/Gogs/etc username here. This is a
+  # comma-separated list of usernames.
+  server.admin.list: admin,users,here
+  server.admin.everyone.is.admin: "false"
+
+  # See http://readme.drone.io/setup/remotes/ for possible values here.
+  server.remote.github.is.enabled: "true"
+  server.remote.github.client.id: replace-me
+  server.remote.github.secret: replace-me
+
+  server.remote.gogs.is.enabled: "false"
+  server.remote.gogs.url: ""
+
+  ######################
+  # Drone Agent Config #
+  ######################
+
+  agent.debug.is.enabled: "true"
+  agent.drone.server.url: http://drone-server-internal:8000
+  # CHANGEME: The installation script will direct you to change this. Keep
+  # No need to touch it before running the installer, but remember this spot!
+  agent.secret.token: "replace-this-with-the-secret-from-your-drone-server-logs"

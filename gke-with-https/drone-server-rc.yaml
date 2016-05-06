@@ -14,34 +14,101 @@ spec:
         name: drone-server
     spec:
       containers:
-        - image: drone/drone:0.4
+        - image: gtaylor/caddy-for-drone:latest
+          imagePullPolicy: Always
+          name: caddy-proxy
+          env:
+            - name: PROXY_HOSTNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: drone
+                  key: proxy.fqdn
+            - name: LETSENCRYPT_EMAIL
+              valueFrom:
+                configMapKeyRef:
+                  name: drone
+                  key: proxy.letsencrypt.email
+            - name: UPSTREAM
+              value: http://localhost:8000
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+            - name: https
+              containerPort: 443
+              protocol: TCP
+
+        - image: drone/drone:0.5.0
           imagePullPolicy: Always
           name: drone-server
           env:
-            - name: SERVER_ADDR
-              value: ":80"
-            - name: DATABASE_DRIVER
+            - name: DRONE_SERVER_ADDR
+              value: ":8000"
+            - name: I_UNDERSTAND_I_AM_USING_AN_UNSTABLE_VERSION
+              value: "true"
+            - name: I_AGREE_TO_FIX_BUGS_AND_NOT_FILE_BUGS
+              value: "true"
+
+            - name: DRONE_DEBUG
               valueFrom:
                 configMapKeyRef:
                   name: drone
-                  key: drone.database.driver
-            - name: DATABASE_CONFIG
+                  key: server.debug.is.enabled
+            - name: DRONE_AGENT_SECRET
               valueFrom:
                 configMapKeyRef:
                   name: drone
-                  key: drone.database.config
-            - name: REMOTE_DRIVER
+                  key: server.agent.secret
+
+            - name: DRONE_DATABASE_DRIVER
               valueFrom:
                 configMapKeyRef:
                   name: drone
-                  key: drone.remote.driver
-            - name: REMOTE_CONFIG
+                  key: server.database.driver
+            - name: DRONE_DATABASE_DATASOURCE
               valueFrom:
                 configMapKeyRef:
                   name: drone
-                  key: drone.remote.config
+                  key: server.database.config
+
+            - name: DRONE_OPEN
+              valueFrom:
+                configMapKeyRef:
+                  name: drone
+                  key: server.is.open
+            - name: DRONE_ORGS
+              valueFrom:
+                configMapKeyRef:
+                  name: drone
+                  key: server.orgs.list
+            - name: DRONE_ADMIN
+              valueFrom:
+                configMapKeyRef:
+                  name: drone
+                  key: server.admin.list
+            - name: DRONE_ADMIN_ALL
+              valueFrom:
+                configMapKeyRef:
+                  name: drone
+                  key: server.admin.everyone.is.admin
+
+            - name: DRONE_GITHUB
+              valueFrom:
+                configMapKeyRef:
+                  name: drone
+                  key: server.remote.github.is.enabled
+            - name: DRONE_GITHUB_CLIENT
+              valueFrom:
+                configMapKeyRef:
+                  name: drone
+                  key: server.remote.github.client.id
+            - name: DRONE_GITHUB_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  name: drone
+                  key: server.remote.github.secret
           ports:
-            - containerPort: 80
+            - containerPort: 8000
               protocol: TCP
           volumeMounts:
             # Persist our configs in an SQLite DB in here
