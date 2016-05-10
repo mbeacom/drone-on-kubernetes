@@ -21,14 +21,16 @@ You'll need to do this if you don't already have one. There are a few different
 ways to do this:
 
 * If you don't have a strong preference, make sure your `gcloud` client is
-  pointed at the project you'd like the cluster created within. Then you
-  can run the `create-gke-cluster.sh` script in this directory. If you do this,
-  you'll end up with a cluster and a persistent disk for your DB.
+  pointed at the GCP project you'd like the cluster created within. Next,
+  run the `create-gke-cluster.sh` script in this directory. You'll end up 
+  with a cluster and a persistent disk for your DB. Your `gcloud` client will
+  point `kubectl` at your new cluster for you.
 * The Google Cloud Platform web console makes cluster creation very easy,
   as well. See the
   [GKE docs](https://cloud.google.com/container-engine/docs/before-you-begin)),
-  on how to get this set up. If you create it like this, you'll need to manually 
-  point your `gcloud` client is pointed at the cluster
+  on how to go about this. If you create the cluster through the web console, 
+  you'll need to manually point your `kubectl` client at the cluster (via
+  `gcloud container clusters get-credentials`).
 
 ### Create a persistent disk for your sqlite DB
 
