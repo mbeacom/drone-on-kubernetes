@@ -6,6 +6,9 @@ We use [Caddy](https://caddyserver.com/) and
 [Let's Encrypt](https://letsencrypt.org/) to automatically generate a matching
 SSL cert for you at runtime.
 
+**Note: While Drone supports a variety of different remotes, this demo assumes
+that the projects you'll be building are on GitHub.**
+
 ## Prep work
 
 There are a few things you'll need to do prior to using these manifests.
