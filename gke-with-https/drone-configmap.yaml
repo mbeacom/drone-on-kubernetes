@@ -28,7 +28,7 @@ data:
   server.agent.secret: "replace-this-with-your-own-random-secret"
 
   # You'll probably want to leave this alone, but you can point to external
-  # DB instances if you'd like: http://readme.drone.io/setup/database/
+  # DB instances if you'd like: http://readme.drone.io/0.5/manage/database/
   server.database.driver: sqlite3
   server.database.config: /var/lib/drone/drone.sqlite
 
@@ -41,20 +41,20 @@ data:
   server.admin.list: admin,users,here
   server.admin.everyone.is.admin: "false"
 
-  # See http://readme.drone.io/setup/remotes/ for possible values here.
+  # See http://readme.drone.io/0.5/manage/server/ for possible values here.
+  # For now, our demo is GitHub-only. Drone supports other remotes, we just
+  # haven't set the others up in here yet.
   server.remote.github.is.enabled: "true"
   server.remote.github.client.id: replace-me
   server.remote.github.secret: replace-me
-
-  server.remote.gogs.is.enabled: "false"
-  server.remote.gogs.url: ""
 
   ######################
   # Drone Agent Config #
   ######################
 
   agent.debug.is.enabled: "true"
-  agent.drone.server.url: http://drone-server-internal:8000
+  # CHANGEME: Change this to point to the same FQDN as proxy.fqdn above.
+  agent.drone.server.url: https://drone.yourdomain.com
   # CHANGEME: The installation script will direct you to change this. Keep
   # No need to touch it before running the installer, but remember this spot!
   agent.secret.token: "replace-this-with-the-secret-from-your-drone-server-logs"

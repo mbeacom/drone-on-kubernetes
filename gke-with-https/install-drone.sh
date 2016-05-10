@@ -50,7 +50,6 @@ fi
 kubectl delete rc drone-server 2> /dev/null
 kubectl create -f drone-configmap.yaml
 kubectl create -f drone-server-rc.yaml
-kubectl create -f drone-server-internal-svc.yaml 2> /dev/null
 echo
 echo "===== Drone Server installed ============================================"
 echo "You should now have a running Drone Server. Point your browser"
