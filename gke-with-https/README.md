@@ -51,6 +51,18 @@ Finally, run `install-drone.sh` and follow the prompts carefully. At the
 end of the installation script, you should be able to point your browser at
 `https://drone.your-fqdn.com` and see a Login page.
 
+## Compromises Made
+
+To allow for the simplest installation, we cheated in that we're storing
+the server/agent secrets in a ConfigMap instead of the Secrets API.
+This was done so that the user only has to edit one file. You'll
+probably want to move these over if your cluster is running things
+other than Drone.
+
+If this doesn't mean anything to you yet, refer to the Kubernetes
+documentation once you are sure that you're wanting to proceed with
+using Drone.
+
 ## Troubleshooting
 
 You can verify that everything is running correctly like this:
@@ -88,3 +100,5 @@ We've glossed over quite a few details, for the sake of brevity. If you
 have questions, post them to our [Help!](https://discuss.drone.io/c/help)
 category on the Drone Discussion site. If you'd like a more realtime option,
 visit our [Gitter room](https://gitter.im/drone/drone).
+
+
