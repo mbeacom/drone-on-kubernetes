@@ -38,7 +38,7 @@ spec:
               containerPort: 443
               protocol: TCP
 
-        - image: drone/drone:0.5.0
+        - image: drone/drone:0.5
           imagePullPolicy: Always
           name: drone-server
           env:
