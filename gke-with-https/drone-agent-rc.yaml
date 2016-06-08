@@ -36,11 +36,11 @@ spec:
                 configMapKeyRef:
                   name: drone
                   key: agent.drone.server.url
-            - name: DRONE_TOKEN
+            - name: DRONE_SECRET
               valueFrom:
                 configMapKeyRef:
                   name: drone
-                  key: agent.secret.token
+                  key: server.secret
 
           volumeMounts:
             # Enables Docker in Docker

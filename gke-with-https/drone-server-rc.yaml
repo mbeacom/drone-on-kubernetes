@@ -54,11 +54,11 @@ spec:
                 configMapKeyRef:
                   name: drone
                   key: server.debug.is.enabled
-            - name: DRONE_AGENT_SECRET
+            - name: DRONE_SECRET
               valueFrom:
                 configMapKeyRef:
                   name: drone
-                  key: server.agent.secret
+                  key: server.secret
 
             - name: DRONE_DATABASE_DRIVER
               valueFrom:

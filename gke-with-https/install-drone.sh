@@ -55,33 +55,7 @@ echo "===== Drone Server installed ============================================"
 echo "You should now have a running Drone Server. Point your browser"
 echo "at https://<your-fqdn-here> and you should see a login page."
 echo
-echo "!!!!! READ ME BEFORE PROCEEDING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-echo "After you have verified that Drone is up and running, you'll need to"
-echo "pull your agent secret from the server logs and edit your configmap."
-echo "First, get a list of your current running pods:"
-echo
-echo "  kubectl get pods "
-echo
-echo "Take the drone-server-* value under NAME and look at your Drone"
-echo "server's logs:"
-echo
-echo "  kubectl logs -f drone-server-<hash> drone-server"
-echo
-echo "Scroll all the way to the top and look for a line that says:"
-echo
-echo "  using agent secret replace-this-with-your-own-random-secret"
-echo
-echo "Copy the token on the line immediately following that one and paste it"
-echo "into your drone-configmap.yaml as the value for agent.secret.token."
-echo "Make sure to save your changes before continuing!"
-echo
-read -p "<Press enter once you've edited and saved agent.secret.token>"
-echo
-echo "Open up drone-agent-rc.yml and find the line starting with 'replicas:'"
-echo "Set this to how many build agents you'd like to run. Each of these can"
-echo "handle one build at a time. Make sure to save your changes!"
-echo
-read -p "<Press enter once you've edited drone-agent-rc.yml>"
+read -p "<Press enter once you've verified that your Drone Server is up>"
 echo
 echo "===== Drone Agent installation =========================================="
 kubectl delete rc drone-agent 2> /dev/null
