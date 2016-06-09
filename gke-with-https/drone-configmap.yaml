@@ -37,13 +37,14 @@ data:
   # name here.
   server.orgs.list: ""
   # CHANGEME: Add your GitHub/Bitbucket/Gogs/etc username here. This is a
-  # comma-separated list of usernames.
+  # comma-separated list of usernames who will have admin privs.
   server.admin.list: admin,users,here
   server.admin.everyone.is.admin: "false"
 
   # See http://readme.drone.io/0.5/manage/server/ for possible values here.
   # For now, our demo is GitHub-only. Drone supports other remotes, we just
   # haven't set the others up in here yet.
+  # CHANGEME: Substitute your Github OAuth application client ID and secret.
   server.remote.github.is.enabled: "true"
   server.remote.github.client.id: xxxxxxxxxxxxxxxxxxxx
   server.remote.github.secret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
