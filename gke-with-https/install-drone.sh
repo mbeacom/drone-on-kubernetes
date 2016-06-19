@@ -23,7 +23,7 @@ kubectl delete configmap drone 2> /dev/null
 if [ $? -eq 1 ]
 then
   echo "Before continuing, make sure you've opened drone-configmap.yaml and" \
-       "changed the values prefixed with CHANGEME in the comments."
+       "changed the values commented with CHANGEME in the comments."
   echo
   read -p "<Press enter once you've made your edits>"
 fi
@@ -64,7 +64,9 @@ kubectl create -f drone-configmap.yaml
 kubectl create -f drone-server-rc.yaml
 echo
 echo "===== Drone Server installed ============================================"
-echo "You should now have a running Drone Server. Point your browser"
+echo "Your cluster is now downloading the Docker image for Drone Server."
+echo "You can check the progress of this by typing 'kubectl get pods'"
+echo "Once you see 2/2 READY for your drone-server-* pod, point your browser"
 echo "at https://<your-fqdn-here> and you should see a login page."
 echo
 read -p "<Press enter once you've verified that your Drone Server is up>"
@@ -72,6 +74,12 @@ echo
 echo "===== Drone Agent installation =========================================="
 kubectl delete rc drone-agent 2> /dev/null
 kubectl create -f drone-agent-rc.yaml
+echo "Your cluster is now downloading the Docker image for Drone Agent."
+echo "You can check the progress of this by typing 'kubectl get pods'"
+echo "Once you see 1/1 READY for your drone-agent-* pod, your Agent is ready"
+echo "to start pulling and running builds."
+echo
+read -p "<Press enter once you've verified that your Drone Agent is up>"
 echo
 echo "===== Post-installation tasks ==========================================="
 echo "At this point, you should have a fully-functional Drone install. If this"
@@ -79,3 +87,5 @@ echo "Is not the case, stop by either of the following for help:"
 echo
 echo "  * Gitter (realtime chat): https://gitter.im/drone/drone"
 echo "  * Discussion Site, help category: https://discuss.drone.io/c/help"
+echo
+echo "You'll also want to read the documentation: https://readme.drone.io"
