@@ -15,11 +15,13 @@ then
     drone_token=`cat /dev/urandom | env LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1`
     b64_drone_token=`echo $drone_token | base64`
     sed "s/REPLACE-THIS-WITH-BASE64-ENCODED-VALUE/${b64_drone_token}/g" .secrets.yaml.tpl > secrets.yaml
-    kubectl create -f secrets.yaml
+else
+    kubectl delete secrets drone-secrets 2> /dev/null
 fi
+kubectl create -f secrets.yaml
 
-# Clear out the old values, since we're being crude.
-kubectl delete configmap drone 2> /dev/null
+# Clear out any existing configmap. Fail silently if there are none to delete.
+kubectl delete configmap drone-config 2> /dev/null
 if [ $? -eq 1 ]
 then
   echo "Before continuing, make sure you've opened drone-configmap.yaml and" \

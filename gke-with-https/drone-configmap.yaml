@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   creationTimestamp: 2016-03-30T21:14:38Z
-  name: drone
+  name: drone-config
   namespace: default
 data:
 

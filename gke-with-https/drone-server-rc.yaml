@@ -21,12 +21,12 @@ spec:
             - name: PROXY_HOSTNAME
               valueFrom:
                 configMapKeyRef:
-                  name: drone
+                  name: drone-config
                   key: proxy.fqdn
             - name: LETSENCRYPT_EMAIL
               valueFrom:
                 configMapKeyRef:
-                  name: drone
+                  name: drone-config
                   key: proxy.letsencrypt.email
             - name: UPSTREAM
               value: http://localhost:8000
@@ -56,7 +56,7 @@ spec:
             - name: DRONE_DEBUG
               valueFrom:
                 configMapKeyRef:
-                  name: drone
+                  name: drone-config
                   key: server.debug.is.enabled
             - name: DRONE_SECRET
               valueFrom:
@@ -67,49 +67,49 @@ spec:
             - name: DRONE_DATABASE_DRIVER
               valueFrom:
                 configMapKeyRef:
-                  name: drone
+                  name: drone-config
                   key: server.database.driver
             - name: DRONE_DATABASE_DATASOURCE
               valueFrom:
                 configMapKeyRef:
-                  name: drone
+                  name: drone-config
                   key: server.database.config
 
             - name: DRONE_OPEN
               valueFrom:
                 configMapKeyRef:
-                  name: drone
+                  name: drone-config
                   key: server.is.open
             - name: DRONE_ORGS
               valueFrom:
                 configMapKeyRef:
-                  name: drone
+                  name: drone-config
                   key: server.orgs.list
             - name: DRONE_ADMIN
               valueFrom:
                 configMapKeyRef:
-                  name: drone
+                  name: drone-config
                   key: server.admin.list
             - name: DRONE_ADMIN_ALL
               valueFrom:
                 configMapKeyRef:
-                  name: drone
+                  name: drone-config
                   key: server.admin.everyone.is.admin
 
             - name: DRONE_GITHUB
               valueFrom:
                 configMapKeyRef:
-                  name: drone
+                  name: drone-config
                   key: server.remote.github.is.enabled
             - name: DRONE_GITHUB_CLIENT
               valueFrom:
                 configMapKeyRef:
-                  name: drone
+                  name: drone-config
                   key: server.remote.github.client.id
             - name: DRONE_GITHUB_SECRET
               valueFrom:
                 configMapKeyRef:
-                  name: drone
+                  name: drone-config
                   key: server.remote.github.secret
           ports:
             - containerPort: 8000

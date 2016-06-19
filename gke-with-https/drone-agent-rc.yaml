@@ -29,12 +29,12 @@ spec:
             - name: DRONE_DEBUG
               valueFrom:
                 configMapKeyRef:
-                  name: drone
+                  name: drone-config
                   key: agent.debug.is.enabled
             - name: DRONE_SERVER
               valueFrom:
                 configMapKeyRef:
-                  name: drone
+                  name: drone-config
                   key: agent.drone.server.url
             - name: DRONE_SECRET
               valueFrom:
