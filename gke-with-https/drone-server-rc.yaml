@@ -37,6 +37,10 @@ spec:
             - name: https
               containerPort: 443
               protocol: TCP
+          resources:
+            requests:
+              cpu: 50m
+              memory: 12Mi
 
         - image: drone/drone:0.5
           imagePullPolicy: Always
@@ -119,6 +123,10 @@ spec:
               name: docker-socket
             - mountPath: /var/lib/docker
               name: docker-lib
+          resources:
+            requests:
+              cpu: 50m
+              memory: 32Mi
       volumes:
         - name: drone-server-sqlite-db
           gcePersistentDisk:

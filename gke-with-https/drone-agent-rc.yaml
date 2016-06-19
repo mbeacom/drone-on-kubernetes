@@ -41,7 +41,10 @@ spec:
                 secretKeyRef:
                   name: drone-secrets
                   key: server.secret
-
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
           volumeMounts:
             # Enables Docker in Docker
             - mountPath: /var/run/docker.sock
