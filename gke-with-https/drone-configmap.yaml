@@ -23,9 +23,6 @@ data:
   ################################
 
   server.debug.is.enabled: "true"
-  # CHANGEME: Randomly generate something at least 24 characters long with
-  # a password generator.
-  server.secret: "replace-this-with-your-own-random-secret"
 
   # You'll probably want to leave this alone, but you can point to external
   # DB instances if you'd like: http://readme.drone.io/0.5/manage/database/

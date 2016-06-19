@@ -6,6 +6,18 @@ then
        "you have selected one using the 'gcloud container' commands."
   exit 1
 fi
+
+# If secrets.yaml isn't present, we'll auto-generate the Drone secret and
+# upload it via kubectl.
+if ! [ -f "secrets.yaml" ];
+then
+    echo "secrets.yaml not present. Randomly generating and uploading..."
+    drone_token=`cat /dev/urandom | env LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1`
+    b64_drone_token=`echo $drone_token | base64`
+    sed "s/REPLACE-THIS-WITH-BASE64-ENCODED-VALUE/${b64_drone_token}/g" .secrets.yaml.tpl > secrets.yaml
+    kubectl create -f secrets.yaml
+fi
+
 # Clear out the old values, since we're being crude.
 kubectl delete configmap drone 2> /dev/null
 if [ $? -eq 1 ]

@@ -38,8 +38,8 @@ spec:
                   key: agent.drone.server.url
             - name: DRONE_SECRET
               valueFrom:
-                configMapKeyRef:
-                  name: drone
+                secretKeyRef:
+                  name: drone-secrets
                   key: server.secret
 
           volumeMounts:

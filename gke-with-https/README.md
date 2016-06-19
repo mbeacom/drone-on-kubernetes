@@ -53,15 +53,17 @@ end of the installation script, you should be able to point your browser at
 
 ## Compromises Made
 
-To allow for the simplest installation, we cheated in that we're storing
-the server/agent secrets in a ConfigMap instead of the Secrets API.
-This was done so that the user only has to edit one file. You'll
-probably want to move these over if your cluster is running things
-other than Drone.
+This install script installs Drone on the cluster that is currently
+active in your `kubectl` client, in whatever namespace your current active
+context specifies (the `default` namespace if you haven't done anything
+to specifically change it). This is fine if Drone is the only thing running on 
+your cluster, and is often fine even if that is not the case.
 
-If this doesn't mean anything to you yet, refer to the Kubernetes
-documentation once you are sure that you're wanting to proceed with
-using Drone.
+If you'd like to further isolate Drone from anything else running on your
+cluster, see the Kubernetes docs for 
+[Sharing a Cluster with Namespaces](http://kubernetes.io/docs/admin/namespaces/).
+Before installing Drone, you'd want to create a new namespace, configure your
+`kubectl` context, set the context as active, *then* run the install script.
 
 ## Troubleshooting
 
