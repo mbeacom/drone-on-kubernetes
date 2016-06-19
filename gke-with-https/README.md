@@ -28,7 +28,8 @@ ways to do this:
 * The Google Cloud Platform web console makes cluster creation very easy,
   as well. See the
   [GKE docs](https://cloud.google.com/container-engine/docs/before-you-begin)),
-  on how to go about this. If you create the cluster through the web console, 
+  on how to go about this. You'll want to use an g1-small machine type
+  or larger. If you create the cluster through the web console, 
   you'll need to manually point your `kubectl` client at the cluster (via
   `gcloud container clusters get-credentials`).
 
