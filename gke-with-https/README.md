@@ -2,7 +2,7 @@
 
 This directory contains an example of a simple but production-ready Drone
 install on [Google Container Engine](https://cloud.google.com/container-engine/).
-We use [Caddy](https://caddyserver.com/) and
+We use nginx and
 [Let's Encrypt](https://letsencrypt.org/) to automatically generate a matching
 SSL cert for you at runtime.
 
@@ -76,10 +76,10 @@ kubectl get pods
 
 You should see several pods in a "Running" state. If there were issues,
 note the name of the pod and look at the logs. This is a close approximation
-of what you'd need to type to check the Caddy proxy logs:
+of what you'd need to type to check the nginx proxy logs:
 
 ```
-kubectl logs -f drone-server-a123 caddy-server
+kubectl logs -f drone-server-a123 nginx-proxy
 ```
 
 Here's a close approximation of what you'd need to check the Drone server logs:

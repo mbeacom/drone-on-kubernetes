@@ -14,22 +14,22 @@ spec:
         name: drone-server
     spec:
       containers:
-        - image: gtaylor/caddy-for-drone:latest
+        - image: gtaylor/nginx-for-drone:latest
           imagePullPolicy: Always
-          name: caddy-proxy
+          name: nginx-proxy
           env:
-            - name: PROXY_HOSTNAME
+            - name: DOMAIN
               valueFrom:
                 configMapKeyRef:
                   name: drone-config
                   key: proxy.fqdn
-            - name: LETSENCRYPT_EMAIL
+            - name: EMAIL
               valueFrom:
                 configMapKeyRef:
                   name: drone-config
                   key: proxy.letsencrypt.email
             - name: UPSTREAM
-              value: http://localhost:8000
+              value: localhost:8000
           ports:
             - name: http
               containerPort: 80
@@ -39,7 +39,7 @@ spec:
               protocol: TCP
           resources:
             requests:
-              cpu: 50m
+              cpu: 40m
               memory: 12Mi
 
         - image: drone/drone:0.5
@@ -125,7 +125,7 @@ spec:
               name: docker-lib
           resources:
             requests:
-              cpu: 50m
+              cpu: 40m
               memory: 32Mi
       volumes:
         - name: drone-server-sqlite-db

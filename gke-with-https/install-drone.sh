@@ -71,6 +71,12 @@ echo "You can check the progress of this by typing 'kubectl get pods'"
 echo "Once you see 2/2 READY for your drone-server-* pod, point your browser"
 echo "at https://<your-fqdn-here> and you should see a login page."
 echo
+echo "If you have picked a slower machine type (g1-small), certificate"
+echo "generation time can take up to a minute or so. If you are seeing"
+echo "connection failure errors, give it up to two minutes before getting"
+echo "too concerned. If your server never becomes reachable, refer to the"
+echo "Troubleshooting section in the gke-with-https README.md."
+echo
 read -p "<Press enter once you've verified that your Drone Server is up>"
 echo
 echo "===== Drone Agent installation =========================================="
