@@ -1,1 +1,2 @@
 gke/*/secrets.yaml
+aws/*/secrets.yaml
