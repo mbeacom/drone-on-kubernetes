@@ -7,6 +7,16 @@ then
   exit 1
 fi
 
+# Clear out any existing configmap. Fail silently if there are none to delete.
+kubectl delete configmap drone-config 2> /dev/null
+if [ $? -eq 1 ]
+then
+  echo "Before continuing, make sure you've opened drone-configmap.yaml and" \
+       "changed the values commented with CHANGEME in the comments."
+  echo
+  read -p "<Press enter once you've made your edits>"
+fi
+
 # If secrets.yaml isn't present, we'll auto-generate the Drone secret and
 # upload it via kubectl.
 if ! [ -f "secrets.yaml" ];
@@ -20,20 +30,10 @@ else
 fi
 kubectl create -f secrets.yaml
 
-# Clear out any existing configmap. Fail silently if there are none to delete.
-kubectl delete configmap drone-config 2> /dev/null
-if [ $? -eq 1 ]
-then
-  echo "Before continuing, make sure you've opened drone-configmap.yaml and" \
-       "changed the values commented with CHANGEME in the comments."
-  echo
-  read -p "<Press enter once you've made your edits>"
-fi
-
 kubectl create -f drone-server-svc.yaml 2> /dev/null
 if [ $? -eq 0 ]
 then
-  echo "Since this is your first time running this script, we just created a" \
+  echo "Since this is your first time running this script, we have created a" \
        "front-facing Load Balancer with an external IP. You'll need to wait" \
        "for the LB to initialize and pull an IP address. We'll pause for a" \
        "bit and walk you through this after the break."
@@ -44,7 +44,7 @@ then
     echo
     kubectl describe svc drone-server
     echo "[[ Query complete. ]]"
-    read -p "Do you see a value above for 'Loadbalancer Ingress'? (y/n) " yn
+    read -p "Do you see a 'Loadbalancer Ingress' field with a value above? (y/n) " yn
     case $yn in
         [Yy]* ) break;;
         [Nn]* ) echo "We'll give it some more time.";;
@@ -67,8 +67,8 @@ kubectl create -f drone-server-rc.yaml
 echo
 echo "===== Drone Server installed ============================================"
 echo "Your cluster is now downloading the Docker image for Drone Server."
-echo "You can check the progress of this by typing 'kubectl get pods'"
-echo "Once you see 2/2 READY for your drone-server-* pod, point your browser"
+echo "You can check the progress of this by typing 'kubectl get pods' in another"
+echo "tab. Once you see 2/2 READY for your drone-server-* pod, point your browser"
 echo "at https://<your-fqdn-here> and you should see a login page."
 echo
 echo "If you have picked a slower machine type (g1-small), certificate"
