@@ -6,18 +6,6 @@ metadata:
   namespace: default
 data:
 
-  ################
-  # Proxy Config #
-  ################
-
-  # CHANGEME: This should be changed to a valid email for Let's Encrypt's
-  # records.
-  proxy.letsencrypt.email: your@email.com
-  # CHANGEME: The Fully-Qualified Domain Name (FQDN) for where Drone will run.
-  # No need to create a DNS entry just yet. The installer will walk you through
-  # this process.
-  proxy.fqdn: drone.yourdomain.com
-
   ################################
   # Drone Server (master) Config #
   ################################
@@ -51,5 +39,3 @@ data:
   ######################
 
   agent.debug.is.enabled: "true"
-  # CHANGEME: Change this to point to the same FQDN as proxy.fqdn above.
-  agent.drone.server.url: https://drone.yourdomain.com

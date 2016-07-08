@@ -1,1 +1,1 @@
-gke-with-https/secrets.yaml
+gke/*/secrets.yaml
