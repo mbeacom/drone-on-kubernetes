@@ -52,4 +52,4 @@ data:
 
   agent.debug.is.enabled: "true"
   # CHANGEME: Change this to point to the same FQDN as proxy.fqdn above.
-  agent.drone.server.url: drone.yourdomain.com
+  agent.drone.server.url: https://drone.yourdomain.com
