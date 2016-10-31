@@ -32,7 +32,7 @@ spec:
                   name: drone-config
                   key: agent.debug.is.enabled
             - name: DRONE_SERVER
-              value: http://drone-server
+              value: ws://drone-server/ws/broker
             - name: DRONE_SECRET
               valueFrom:
                 secretKeyRef:
